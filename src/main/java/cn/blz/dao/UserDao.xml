@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间的作用是对SQL进行分类管理，起到隔离SQL的作用，如果使用mapper代理，namespace有特殊重要作用 -->
+<mapper namespace="cn.blz.dao.UserDao">
+    <select id="getUserById" parameterType="String" resultType="User">
+        select * from mybatistest where user_id=#{userId}
+    </select>
+    <select id="getUserByName" parameterType="String" resultType="User">
+        select * from mybatistest where cname like concat('%',#{value},'%')
+    </select>
+    <insert id="insertUser" parameterType="User">
+        insert into mybatistest values(#{user_id},#{user_name},#{role_id},#{user_pass},#{cname},#{user_image})
+    </insert>
+    <delete id="deleteUser" parameterType="String">
+        delete from mybatistest where user_id=#{user_id}
+    </delete>
+</mapper>
