@@ -8,10 +8,6 @@
         <result column="user_id" property="userId"/>
     </resultMap>
 
-    <select id="getOrders" parameterType="map" resultMap="orderResult">
-        SELECT o.orderId,u.`user_id` FROM mybatis_order o INNER JOIN mybatis_user u ON o.`userId`=u.`user_id` WHERE u.`cname` LIKE concat('%',#{user.cname},'%');
-    </select>
-
     <!--sql片段集-->
     <sql id="queryDynamic">
         <if test="user.cname != null and user.cname != ''">
@@ -22,10 +18,24 @@
         </if>
     </sql>
 
+    <select id="getOrders" parameterType="map" resultMap="orderResult">
+        SELECT o.orderId,u.`user_id` FROM mybatis_order o INNER JOIN mybatis_user u ON o.`userId`=u.`user_id` WHERE u.`cname` LIKE concat('%',#{user.cname},'%');
+    </select>
+
     <select id="getOrdersDynamic" parameterType="map" resultMap="orderResult">
         select o.`orderId`,u.`user_id` from mybatis_order o inner join mybatis_user u on o.`userId`=u.`user_id` where
         1=1
         <include refid="queryDynamic"/>
         ;
     </select>
+
+    <select id="getOrdersBatch" parameterType="list" resultMap="orderResult">
+        select o.`orderId`,u.`user_id` from mybatis_order o inner join mybatis_user u on o.`userId`=u.`user_id` where
+        1=1
+          <foreach collection="list" item="item" open="and(" close=")" separator="or">
+              u.user_id=#{item}
+          </foreach>
+        ;
+    </select>
+
 </mapper>

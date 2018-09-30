@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,18 @@ public class MyBatisTest2 {
         args.put("state",2);
         List<Map> list = mapper.getOrdersDynamic(args);
         System.out.println(list);
+    }
+
+    @Test
+    public void getOrdersBatch(){
+        session = factory.openSession();
+        OrderDao mapper = session.getMapper(OrderDao.class);
+        List list = new ArrayList();
+//        list.add("US00000001");
+        list.add("US00000002");
+
+        List<Map> list2 = mapper.getOrdersBatch(list);
+        System.out.println(list2);
     }
 
 
