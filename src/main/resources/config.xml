@@ -2,8 +2,8 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="db.properties"/>
 
+    <properties resource="db.properties"/>
     <!-- MyBatis的全局配置文件（参数设置），基本用来进行MyBatis的优化处理 -->
     <settings>
         <setting name="logImpl" value="LOG4J"/>
@@ -13,8 +13,7 @@
     </settings>
     <!--别名-->
     <typeAliases>
-        <typeAlias type="cn.blz.dto.User" alias="User"/>
-        <!--<package name="cn.blz.dto.User"/>-->
+        <package name="cn.blz.dto"/>
     </typeAliases>
     <!-- 以下配置不需掌握，和Spring整合后，以下配置将被废除 -->
     <environments default="development">
@@ -28,8 +27,7 @@
             </dataSource>
         </environment>
     </environments>
-
-
+    <!--mapper映射-->
     <mappers>
         <package name="cn.blz.dao"/>
     </mappers>

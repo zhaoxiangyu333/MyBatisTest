@@ -1,4 +1,4 @@
-import cn.blz.dao.UserDao;
+import cn.blz.dao.user.UserDao;
 import cn.blz.dto.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
