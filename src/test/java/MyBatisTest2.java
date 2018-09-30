@@ -39,6 +39,20 @@ public class MyBatisTest2 {
         System.out.println(list);
     }
 
+    @Test
+    public void getOrdersDynamic() {
+        session = factory.openSession();
+        OrderDao mapper = session.getMapper(OrderDao.class);
+        Map args = new HashMap();
+        User user = new User();
+        user.setCname("李");
+        args.put("user", user);
+        args.put("state",2);
+        List<Map> list = mapper.getOrdersDynamic(args);
+        System.out.println(list);
+    }
+
+
     @After
     public void destory() {
         // 释放资源
