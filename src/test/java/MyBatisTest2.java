@@ -15,9 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- */
 public class MyBatisTest2 {
     SqlSessionFactory factory = null;
     SqlSession session = null;
@@ -38,7 +35,7 @@ public class MyBatisTest2 {
         User user = new User();
         user.setCname("李工");
         args.put("user", user);
-        List<Order> list = mapper.getOrders(args);
+        List<Map> list = mapper.getOrders(args);
         System.out.println(list);
     }
 

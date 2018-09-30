@@ -12,5 +12,5 @@ public interface OrderDao {
      * @param args
      * @return
      */
-    List<Order> getOrders(Map args);
+    List<Map> getOrders(Map args);
 }

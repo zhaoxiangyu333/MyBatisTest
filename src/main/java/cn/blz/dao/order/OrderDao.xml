@@ -3,7 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 命名空间的作用是对SQL进行分类管理，起到隔离SQL的作用，如果使用mapper代理，namespace有特殊重要作用 -->
 <mapper namespace="cn.blz.dao.order.OrderDao">
-    <select id="getOrders" parameterType="map" resultType="Order">
-        SELECT u.`cname`,o.* FROM mybatis_order o INNER JOIN mybatis_user u ON o.`userId`=u.`user_id` WHERE u.`cname` LIKE concat('%',#{user.cname},'%');
+    <resultMap id="orderResult" type="Order">
+        <id column="orderId" property="orderId"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <select id="getOrders" parameterType="map" resultMap="orderResult">
+        SELECT o.orderId,u.`user_id` FROM mybatis_order o INNER JOIN mybatis_user u ON o.`userId`=u.`user_id` WHERE u.`cname` LIKE concat('%',#{user.cname},'%');
     </select>
 </mapper>
