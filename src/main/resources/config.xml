@@ -10,10 +10,13 @@
         <setting name="lazyLoadingEnabled" value="true"/>
         <setting name="aggressiveLazyLoading" value="false"/>
         <setting name="cacheEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <setting name="lazyLoadTriggerMethods" value=""/>
     </settings>
     <!--别名-->
     <typeAliases>
-        <package name="cn.blz.dto"/>
+        <!--<package name="cn.blz.dto"/>-->
+        <package name="cn.blzsupper.dto"/>
     </typeAliases>
     <!-- 以下配置不需掌握，和Spring整合后，以下配置将被废除 -->
     <environments default="development">
@@ -29,7 +32,8 @@
     </environments>
     <!--mapper映射-->
     <mappers>
-        <package name="cn.blz.dao"/>
+        <!--<package name="cn.blz.dao"/>-->
+        <package name="cn.blzsupper.dao"/>
     </mappers>
 
 </configuration>

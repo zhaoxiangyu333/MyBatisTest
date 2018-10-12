@@ -65,7 +65,6 @@ public class MyBatisTest2 {
         System.out.println(list2);
     }
 
-
     @After
     public void destory() {
         // 释放资源

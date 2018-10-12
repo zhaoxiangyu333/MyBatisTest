@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 命名空间的作用是对SQL进行分类管理，起到隔离SQL的作用，如果使用mapper代理，namespace有特殊重要作用 -->
+<mapper namespace="cn.blzsupper.dao.UserDao">
+    <resultMap id="UserWithOrder" type="UserWithOrder">
+        <!--用户配置信息-->
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_passwd" property="userPassword"/>
+        <result column="user_headImg" property="userHeadImg"/>
+        <!--订单配置信息-->
+        <collection property="orders" ofType="OrderWithDetail" select="getOrderByUser" column="user_id"/>
+    </resultMap>
+
+    <resultMap id="orderWithDetailMap" type="OrderWithDetail">
+        <id column="order_id" property="orderId"/>
+        <result column="order_code" property="orderCode"/>
+        <result column="order_createDate" property="orderCreateDate"/>
+        <result column="order_state" property="orderState"/>
+        <result column="order_price" property="orderPrice"/>
+        <!--订单详情配置-->
+        <collection property="orderDetails" ofType="OrderDetailWithGoods">
+            <id column="goods_id" property="goodsId"/>
+            <result column="order_count" property="count"/>
+            <result column="order_price" property="price"/>
+            <!--关联商品-->
+            <association property="goods" javaType="Goods">
+                <result column="goods_title" property="goodsTitle"/>
+                <result column="goods_description" property="goodsDescription"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <!--主sql-->
+    <select id="getUsersWithOrderDetail" resultMap="UserWithOrder">
+          select * from t_user;
+    </select>
+    <!--延迟加载sql-->
+    <select id="getOrderByUser" resultMap="orderWithDetailMap">
+         select o.order_id,o.order_code,o.order_createDate,o.order_state,o.order_price,
+         d.goods_id,d.order_count,d.order_price,
+         g.goods_title,g.goods_description
+         from t_order o
+         inner join t_order_detail d on o.order_id=d.order_id
+         inner join t_goods g on d.goods_id = g.goods_id
+         where o.user_id=#{user_id};
+    </select>
+</mapper>
